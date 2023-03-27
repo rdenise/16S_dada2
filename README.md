@@ -1,4 +1,4 @@
-# Snakemake workflow: Virome pipeline
+# Snakemake workflow: 16S RNA workflow with dada2
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥7.24.2-brightgreen.svg)](https://snakemake.github.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -71,3 +71,28 @@ DADA2 output files, including feature table and representative sequences
 
 The final output files will be located in the `output_folder` specified in the config.yaml file.
 
+A folder containing your work will be created:
+
+```
+[output_folder]                            <- Main results folder
+├── databases                              <- Folder containing databases used in the analysis
+│   └── reads_trimmed                      <- Folder containing trimmed read FASTQ files
+├── logs                                   <- Folder containing log files for each analysis step
+├── processed_files                        <- Folder containing processed files resulting from the analysis
+│   └── dada2                              <- Folder containing output files from DADA2 analysis pipeline
+│       ├── denoised                       <- Folder containing denoised sequences
+│       ├── filtered-pe                    <- Folder containing filtered paired-end reads
+│       ├── learn-errors                   <- Folder containing learned error rates
+│       ├── merged                         <- Folder containing merged paired-end reads
+│       └── uniques                        <- Folder containing unique sequences
+├── reports                                <- Folder containing analysis reports
+│   ├── dada2                              <- Folder containing DADA2 analysis pipeline reports
+│   │   ├── filter-trim-pe                 <- Report on quality filtering and trimming of paired-end reads
+│   │   └── quality-profile                <- Report on sequence quality profile
+│   └── qc                                 <- Folder containing quality control reports
+│       ├── fastqc                         <- FastQC report files for each input read file
+│       ├── multiqc_report.trimmed_data    <- MultiQC report for trimmed reads
+│       └── multiqc_report.untrimmed_data  <- MultiQC report for untrimmed reads
+└── results                                <- Folder containing final analysis results
+
+```
