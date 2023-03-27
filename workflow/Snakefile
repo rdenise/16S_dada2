@@ -1,0 +1,125 @@
+# ###############################################################################
+# This file is part of the virome pipeline.                                     #
+#                                                                               #
+# Authors: Remi Denise and Andrey Shkoporov                                     #
+# Copyright © 2022 University College Cork (Cork, Ireland).                     #
+# See the COPYRIGHT file for details.                                           #
+#                                                                               #
+# The virome pipeline  is a Snakemake workflow ???                              #                                                          #
+#                                                                               #
+# This virome pipeline is free software: you can redistribute it and/or modify  #
+# it under the terms of the Affero GNU General Public License as published by   #
+# the Free Software Foundation, either version 3 of the License,                #
+# or (at your option) any later version.                                        #
+#                                                                               #
+# This virome pipeline is distributed in the hope that it will be useful, but   #
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY    #
+# or FITNESSFOR A PARTICULAR PURPOSE. See the Affero GNU General Public License #
+# for more details.                                                             #
+#                                                                               #
+# You should have received a copy of the Affero GNU General Public License      #
+# along with sORTholog (COPYING file).                                          #
+# If not, see <https://www.gnu.org/licenses/>.                                  #
+# ###############################################################################
+
+##########################################################################
+##########################################################################
+##
+##                            Singularity
+##
+##########################################################################
+##########################################################################
+# this container defines the underlying OS for each job when using the workflow
+# with --use-conda --use-singularity
+
+
+container: "docker://continuumio/miniconda3"
+
+
+from snakemake.utils import min_version
+
+# set minimum snakemake version
+min_version("7.24.2")
+
+##########################################################################
+##########################################################################
+##
+##                                Rules
+##
+##########################################################################
+##########################################################################
+
+
+# load config
+configfile: "config/config.yaml"
+
+
+# Path to report rst file
+report: "report/workflow.rst"
+
+
+# Set local rule that could be launch without submiting to cluster because ultra quick
+localrules:
+    all,
+    clean,
+
+
+##########################################################################
+# Load rules
+##########################################################################
+
+
+include: "rules/common.smk"
+include: "rules/qc_trim_filter_reads.smk"
+include: "rules/dada2.smk"
+
+##########################################################################
+##########################################################################
+
+
+rule all:
+    input:
+        get_final_output(
+            outdir=OUTPUT_FOLDER,
+        ),
+
+
+##########################################################################
+##########################################################################
+
+rule quality:
+    input:
+        # In a first run of this meta-wrapper, comment out all other inputs and only keep this one.
+        # Looking at the resulting plot, adjust the `truncLen` in rule `dada2_filter_trim_pe` and then
+        # rerun with all inputs uncommented.
+        # Problem with snakemake that do not try to find the right wrapper (python instead of R)
+        expand(
+            os.path.join(
+                OUTPUT_FOLDER,
+                "reports",
+                "dada2",
+                "quality-profile",
+                "{sample}-quality-profile.png"
+            ),
+            sample=FASTQ_SAMPLES
+        ),
+        os.path.join(
+            OUTPUT_FOLDER,
+            "reports",
+            "qc",
+            "multiqc_report.untrimmed.html",
+        )
+
+##########################################################################
+##########################################################################
+
+
+rule clean:
+    input:
+        os.path.join(OUTPUT_FOLDER, "logs"),
+    shell:
+        """rm -rf {input}"""
+
+
+##########################################################################
+##########################################################################

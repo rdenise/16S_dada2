@@ -1,0 +1,15 @@
+# path to contigs reads folder
+reads_folder: "/data/san/data1/users/remi/16S_analysis/test/"
+# identifier of the sample name in the reads files (e.g. _R if the file is named sample1_R1.fastq.gz)
+reads_identifier: "_R"
+
+# path to the result folder
+output_folder: results
+
+# path to the reference database folder: https://zenodo.org/record/4587955
+silva_nr_train_set: "/data/san/data0/databases/silva/silva_nr99_v138.1_train_set.fa.gz"
+
+# Dada2 parameters
+dada2:
+    # Length of the reads to be used for the analysis [forward, reverse]
+    truncLen: [250,220]
