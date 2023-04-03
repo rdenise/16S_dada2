@@ -7,8 +7,8 @@
 
 This workflow uses DADA2 to process RNA 16S reads. The pipeline consists of three main rules:
 
-quality: This rule takes the raw reads and performs quality control, trimming, and filtering.
-all: This rule takes the preprocessed reads and performs denoising, chimera removal, and generates the final feature table and representative sequences.
+quality: This rule takes the raw reads and performs quality control, trimming, and filtering.  
+all: This rule takes the preprocessed reads and performs denoising, chimera removal, and generates the final feature table and representative sequences.  
 
 ## Dependencies
 

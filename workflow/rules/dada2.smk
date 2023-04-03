@@ -236,7 +236,7 @@ rule dada2_merge_pairs:
                 "processed_files",
                 "dada2",
                 "denoised",
-                "{sample}_R1.RDS"
+                "{sample}_R2.RDS"
         ),
         derepF=os.path.join(
                 OUTPUT_FOLDER,
@@ -250,7 +250,7 @@ rule dada2_merge_pairs:
                 "processed_files",
                 "dada2",
                 "uniques",
-                "{sample}_R1.RDS"
+                "{sample}_R2.RDS"
         )
     output:
         os.path.join(

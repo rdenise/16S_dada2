@@ -12,4 +12,4 @@ silva_nr_train_set: "/data/san/data0/databases/silva/silva_nr99_v138.1_train_set
 # Dada2 parameters
 dada2:
     # Length of the reads to be used for the analysis [forward, reverse]
-    truncLen: [250,220]
+    truncLen: [250,250]
