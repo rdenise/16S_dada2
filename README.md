@@ -2,6 +2,8 @@
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥7.24.2-brightgreen.svg)](https://snakemake.github.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/619899863.svg)](https://zenodo.org/badge/latestdoi/619899863)
+
 
 ## Aim
 
@@ -29,6 +31,32 @@ mamba create -c bioconda -c conda-forge --name snakemake snakemake snakedeploy
 ```
 
 to install both Snakemake and Snakedeploy in an isolated environment. 
+
+### Deploy workflow
+
+Given that Snakemake and Snakedeploy are installed and available (see Step 1), the workflow can be deployed as follows.
+
+First, create an appropriate project working directory on your system in the place of your choice as follow (note to change the path and file name to the one you want to create): : 
+
+```shell
+mkdir path/to/project-workdir
+```
+
+Then go to your project working directory as follow:
+
+```shell
+cd path/to/project-workdir
+```
+
+In all following steps, we will assume that you are inside of that directory.
+
+Second, run 
+
+```shell
+snakedeploy deploy-workflow https://github.com/rdenise/detection_virus_metagenomes . --tag 0.0.1
+```
+
+Snakedeploy will create two folders `workflow` and `config`. The former contains the deployment of the chosen workflow as a [Snakemake module](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#using-and-combining-pre-exising-workflows), the latter contains configuration files which will be modified in the next step in order to configure the workflow to your needs. Later, when executing the workflow, Snakemake will automatically find the main `Snakefile` in the `workflow` subfolder.
 
 
 ## Configuring the pipeline
