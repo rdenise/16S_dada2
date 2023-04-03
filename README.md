@@ -10,6 +10,8 @@ This workflow uses DADA2 to process RNA 16S reads. The pipeline consists of thre
 quality: This rule takes the raw reads and performs quality control, trimming, and filtering.  
 all: This rule takes the preprocessed reads and performs denoising, chimera removal, and generates the final feature table and representative sequences.  
 
+This workflow is based on the DADA2 Rscript made by Thomaz Bastiaanssen (UCC, APC Microbiome). A copy of the script is included in the scripts folder. A guidebook on how to calculate alpha and beta diversity is available at this url https://github.com/thomazbastiaanssen/Tjazi .
+
 ## Dependencies
 
 Snakemake and Snakedeploy are best installed via the [Mamba package manager](https://github.com/mamba-org/mamba) (a drop-in replacement for conda). If you have neither Conda nor Mamba, it can be installed via [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge). For other options see [here](https://github.com/mamba-org/mamba).
@@ -33,10 +35,10 @@ to install both Snakemake and Snakedeploy in an isolated environment.
 
 Before running the pipeline, you need to modify the config.yaml file to match your specific project requirements.
 
-reads_folder: This is the path to the folder containing your raw reads.
-reads_identifier: This is the string that identifies the pair end name in the raw read files.
-output_folder: This is the path to the folder where you want to store the results.
-silva_nr_train_set: This is the path to the SILVA NR99 reference database.
+reads_folder: This is the path to the folder containing your raw reads.  
+reads_identifier: This is the string that identifies the pair end name in the raw read files.  
+output_folder: This is the path to the folder where you want to store the results.  
+silva_nr_train_set: This is the path to the SILVA NR99 reference database.  
 lenght_reads: Th wanted size to trim the reads
 
 ## Running the pipeline
